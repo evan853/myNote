@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>RAP Example</title>
+<script src="http://code.jquery.com/jquery-1.11.0.js"></script>
+<!-- 引入RAP开始 -->
+<script src ="<script src="http://rapapi.org/rap.plugin.js?projectId=19272"></script>
+<!-- 引入RAP开始 -->
+</head>
+<body>
+<script>
+$.ajax({
+url:'getDepTaskList',
+data:{
+id : 375
+},
+success:function(json){
+console.log(json);
+}
+});
+</script>
+</body>
+</html>

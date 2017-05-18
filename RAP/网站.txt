@@ -1,1 +1,4 @@
 http://www.cnblogs.com/dothin/p/5361883.html
+
+mockjsÍøÕ¾
+https://github.com/nuysoft/Mock/wiki/Syntax-Specification
