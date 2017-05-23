@@ -1,0 +1,688 @@
+<div class="No_Select">
+== 字体 ==
+两个 ' 来表示斜体，三个 ' 表示粗体，五个 ' 表示粗斜体，比如
+'' 斜体 ''      ''' 粗体 '''          ''''' 粗斜体 '''''
+
+对于字体你可以采用如下方式改变大小和颜色，比如
+<pre>
+Here's some <big>large text</big> and some <small>little words</small>.
+
+<font color="red">Here is red text</font>
+
+<font size="+3">Here is big text</font>
+
+<span style="color:green">Here is green text</span>
+</pre>
+将得到：
+Here's some <big>large text</big> and some <small>little words</small>.
+
+<font color="red">Here is red text</font>
+
+<font size="+3">Here is big text</font>
+
+<span style="color:green">Here is green text</span>
+
+即使用标签<nowiki> <big>，<small>，<font>，<span></nowiki>
+
+== 标题 ==
+MediaWiki标题使用等号来控制。
+
+文章较长而需要设置段落标题时，可使用
+
+<pre>
+= 一级标题 =
+
+== 二级标题 ==
+
+=== 三级标题 ===
+
+==== 四级标题 ====
+
+===== 五级标题 =====
+ 
+====== 六级标题 ======
+</pre>
+
+等 wiki 标记。系统将自动根据标题等级显示出不同的字体效果。 
+
+注意：文章标题要求在行首书写，结尾的等号之后不能紧跟文字，否则MediaWiki将不认为是标题。 
+
+当文章中含有3个以上标题时，MediaWiki将自动在第一个标题之前生成目录（这是默认的设置）。
+
+== 列表 ==
+
+=== 顺序列表 ===
+
+'''顺序列表用#号表示。一个#号表示一级，两个#号表示第二级...'''
+
+输入：
+<pre>
+# 这是第一种
+# 哦耶，会自动标上序号哦!!
+## 唔!变成第二层了
+## 不错玩
+### 再到第三层
+### 还是第三层
+</pre>
+
+得到：
+
+# 这是第一种
+# 哦耶，会自动标上序号哦!!
+## 唔!变成第二层了
+## 不错玩
+### 再到第三层
+### 还是第三层
+
+=== 无序列表 ===
+
+'''无序列表用*号来表示'''
+
+输入：
+<pre>
+* 这是第二种
+* 哦耶
+** 第二层
+***第三层
+</pre>
+
+得到：
+
+* 这是第二种
+* 哦耶
+** 第二层
+***第三层
+
+=== 混合列表 ===
+
+输入：
+
+<pre>
+#祖父(还可以这样用)
+#*父
+#*母
+##兄
+##*弟
+##*妹
+### 这是谁?
+##*下面的别乱搞啊
+#*#(请按照层级)
+#祖母(注意标记，第一层的都同样是"#")
+</pre>
+
+得到：
+
+#祖父(还可以这样用)
+#*父
+#*母
+##兄
+##*弟
+##*妹
+### 这是谁?
+##*下面的别乱搞啊
+#*#(请按照层级)
+#祖母(注意标记，第一层的都同样是"#")
+
+=== 缩进与列表 ===
+mediawiki中的缩进不能使用半角空格调整。有以下几种方式控制缩进格式缩进：
+
+'''行首使用半角:号：'''允许多个半角冒号连用，以控制不同文本缩进深度。
+
+'''行首使用半角*号：'''行首星号是列表控制符，产生列表的同时伴有不同的文本缩进。允许多个星号连用。
+
+'''行首使用半角#号'''：数字序号的列表控制符，与星号类似。注意，多个#号行中夹有非#号起始的文本行时，数字序号会中断。
+
+'''使用;与:号配合：'''分号与冒号称为“定义列表”控制符，冒号之后的部分换行缩进显示。
+
+'''行首使用全角空格：'''一种非正规手段，注意不要滥用。
+
+例如输入时在行首加一空格：
+<pre> 空格的作用</pre>
+（请注意行首有一半角空格）
+
+就得到：
+ 空格的作用
+例如行首输入冒号，就得到两个文字的缩进：
+<pre>:冒号表示缩进</pre>
+得到：
+:冒号表示缩进
+
+使用;与:配合，例如输入：
+<pre>
+;标题:定义
+</pre>
+得到：
+;标题:定义
+
+== 注释 ==
+
+mediawiki的注释和html一样啦，加了注释就不会在wiki页面上出现了啦。
+
+<pre><!-- 我要将妳藏起来 --></pre>
+
+== 换行 ==
+
+MediaWiki文本中，单独回车并不会出现换行。为强制换行，可以：
+
+* 增加空行会分开不同的段落
+* 在换行位置使用强制换行标签“<nowiki><br></nowiki>”
+
+== 链接 ==
+=== 页面内部-锚 ===
+如果要在页面内部跳转，可以先定义锚点：
+<pre><div id="自定义锚点">可选文字</div></pre>
+示例：<div id="自定义锚点">可选文字</div>
+然后使用以下语句跳转到那个锚点：
+<pre>[[#自定义锚点]]</pre>
+示例：[[#自定义锚点]]
+<pre>[[#自定义锚点|不同的文字]]</pre>
+
+=== 内部链接 ===
+
+MediaWiki内部链接使用两个方括号，例如输入
+
+<pre>[[首页]]</pre>
+
+就得到 [[首页]]
+
+如果链接的实际地址和现实的不一致，使用下面的格式：
+
+<pre>[[首页|我是首页]]</pre>
+
+显示效果如下：
+
+[[首页|我是首页]]
+
+=== 外部链接 ===
+
+分以下两种情况：
+
+* URL 地址 MediaWiki 会自动识别为链接。
+
+: 例如输入：
+<pre>http://klniu.com/</pre>
+
+: 就显示：
+
+: http://klniu.com/ 
+
+: 注意：为了正确识别，在URL之后要留一个空格。
+
+* 利用方括号定义外部链接，这种方式可以指定显示的内容。
+
+: 例如输入：
+<pre>[http://klniu.com/ Klniu]</pre> 
+: 就得到：
+
+: [http://klniu.com/ Klniu]
+
+: URL和显示文本之间用空格隔开。
+
+== 分类 ==
+
+=== 添加与编辑分类 ===
+在文本中嵌入“<nowiki>[[category:文章分类]]</nowiki>”的文字，会使本文自动归类到“文章分类”下面。一般习惯在文章末尾放置该语句；同一篇文章可以设定多个分类。
+
+编辑完成后，点击正文页面下端的分类名称，可以进入该分类页面查看更多的同类文章。同时，分类页面中也可以进行编辑，以进行必要的说明。
+
+=== 引用分类 ===
+在 mediawiki 文章中链接分类页面正确的写法是<nowiki>[[:category:XXX]]</nowiki>，显示时不会显示前导冒号，例如[[:category:分类]]。
+
+如果没有前导冒号，直接书写<nowiki>[[category:XXX]]</nowiki>不能得到正确的链接，而会将页面进行一次预料之外的分类。
+
+分类页面链接的引用中也可以增加说明文字，格式为<nowiki>[[:category:XXX|说明文字]]</nowiki>，例如文本中的 <nowiki>[[:category:分类|分类]]</nowiki> 将显示为[[:category:分类|分类]]。
+
+== 引用/嵌入 ==
+mediawiki中允许调用或嵌入其他页面中的内容，方法为文章中输入<nowiki>{{被引用文章}}</nowiki>。
+
+在其中要指出命名空间，比如需要引用主命名空间下的“地球”，则使用<nowiki>{{:地球}}</nowiki>。
+
+如果调用模板，直接<nowiki>{{模板名称}}</nowiki>即可。
+
+== 使用图片 ==
+
+*对于站外图片，直接在文本中书写http链接即可
+*当图片位于本机（没有网址可供调用）时，要把图片在Special:Upload页面上传后才能使用。（该页面的链接可在左边的“工具箱”中找到，标注为“上传文件”）。 
+*图片文件不能使用中文名称，应在上载时指定为英文名称。
+*上载完成后，图片即可被引用。使用方式为在文章编辑时加入“<nowiki>[[</nowiki>Image:Filename.jpg<nowiki>]]</nowiki>”即可（如果发现图片无法引用，请检查文件名的大小写）
+
+== 禁止文字转换 ==
+
+当需要原样显示会被系统转换掉的文本时（如双中括号等），应在歧义文本的两端分别加上
+<pre>
+&lt;nowiki&gt;&lt;/nowiki&gt;
+</pre>
+标记，系统将不再转换中间的内容。
+也可以使用
+<pre>&lt;pre&gt;&lt;/pre&gt;</pre>
+标记。
+
+== 目录控制 ==
+
+当文章中含有3个以上标题时，mediawiki将自动在第一个标题之前生成目录（这是默认的设置）。 
+*如果需要隐去目录，可以在文章中加入“<nowiki>__NOTOC__</nowiki>”标记； 
+*如果需要强制显示目录而不管标题数量，可以加入“<nowiki>__TOC__</nowiki>”标记； 
+这两个wiki标记不限制出现位置，但一般出现在文章头部或尾部且单独成行。
+
+== 表格 ==
+=== 表格标签(table) ===
+可以这样描述一个表格：
+<pre>
+{|参数
+|}
+</pre>
+相当于
+<pre>
+<table 参数>
+</table>
+</pre>
+=== 单元格(td) ===
+
+'''单元格可以这样产生：'''
+<pre>
+|单元1
+|单元2
+|单元3
+</pre>
+或者这样也可以：
+<pre>|单元1||单元2||单元3</pre>
+相当于
+<pre><td>单元1</td><td>单元2</td><td>单元3</td></pre>
+其中“||”相当于“新起一行”+“|”
+
+'''在单元格中可以这样使用参数：'''
+<pre>|参数|单元1</pre>
+相当于
+<pre><td 参数></pre>
+
+=== 表头(th) ===
+
+使用方法和单元格类似，用“!”代替“|”，用“!!”代替“||”。但是参数仍然使用“|”。
+
+=== 行(tr) ===
+
+'''表格开始时会自己新建一行，如果要开始一个新行使用：'''
+<pre>|-</pre>
+或者
+<pre>|--------------</pre>
+或者
+<pre>|-------------------</pre>
+他们都相当于
+<pre><tr></pre>
+'''可以这样添加参数：'''
+<pre>|- 参数</pre>
+或者
+<pre>|------- 参数</pre>
+都相当于
+<pre><tr 参数></pre>
+
+=== 标题(caption) ===
+
+'''表格标题标记可以这样使用：'''
+<pre>|+ 标题</pre>
+相当于
+<pre><caption>标题</caption></pre>
+'''你也可以使用参数：'''
+<pre>|+ 参数|标题</pre>
+相当于
+<pre><caption 参数>Caption</pre>
+
+=== 参数 ===
+参数基本是和html标记语言一致的。
+*边框 border 
+:border的值对应着不同的边框样式，可以在使用时尝试多个值，对比效果后选择
+
+*对齐 align 
+:align的值可以取right（右对齐） left（左对齐） center（居中） justify（两端对齐）
+
+*合并单元格 rowspan和colspan
+:rowspan和colspan表示为一个单元格所占用的行数和列数
+
+*颜色 bgcolor background color
+：bgcolor和background是设置的背景颜色，color是设置的字体的颜色。
+:*针对单元格设置背景色和字体色，
+<pre>{| border=1
+| bgcolor=blue | <font color=yellow> 字黄背景蓝
+| 沒设定顏色
+| style="background:red; color:yellow" | 字黄背景红
+| 沒设定顏色
+|}
+</pre>
+:显示为
+{| border=1
+| bgcolor=blue | <font color=yellow> 字黄背景蓝
+| 沒设定顏色
+| style="background:red; color:yellow" | 字黄背景红
+| 沒设定顏色
+|}
+:*针对整行或者整列或者整个表格色彩的设置
+<pre>
+{| style="background:yellow; color:blue" border=1
+|- 
+| 这行是
+| 蓝字
+| 黄背景
+|- style="background:navy; color:white"
+| 这行是
+| 白字
+| 深海蓝
+|-
+| 这行
+| style="background:white" | 比较
+| 不一样
+|}
+</pre>
+{| style="background:yellow; color:blue" border=1
+|- 
+| 这行是
+| 蓝字
+| 黄背景
+|- style="background:navy; color:white"
+| 这行是
+| 白字
+| 深海蓝
+|-
+| 这行
+| style="background:white" | 比较
+| 不一样
+|}
+----
+
+=== 行高(height)和列宽(width) ===
+整个表格的行高(height)和列宽(width)，以及任意列的列宽可以进行设定。要设定任意行的行高，可以通过设定该行任意一个单元格的行高来实现。如果存在行、列的高、宽没有设定，那么表格的显示结果可能随浏览器的不同而不同。
+<pre>
+{| style="width:75%; height:200px" border="1"
+|- 
+| abc
+| def
+| ghi
+|- style="height:100px" 
+| jkl
+| style="width:200px" |mno
+| pqr
+|-
+| stu
+| vwx
+| yz
+|}
+</pre>
+将得到这样的结果：
+{| style="width:75%; height:200px" border="1"
+|- 
+| abc
+| def
+| ghi
+|- style="height:100px" 
+| jkl
+| style="width:200px" |mno
+| pqr
+|-
+| stu
+| vwx
+| yz
+|}
+
+=== 实例 ===
+
+*实例1：
+<pre>
+{|
+| 单元1，行1
+| 单元2，行1
+|-
+| 单元1，行2
+| 单元2, 行2
+|}
+</pre>
+:将生成：
+{|
+| 单元1，行1
+| 单元2，行1
+|-
+| 单元1，行2
+| 单元2, 行2
+|}
+
+*实例2：
+<pre>
+{| align=right border=1
+| 单元1, 行1
+|rowspan=2| 单元2, 行1 (和2)
+| 单元3, 行1
+|-
+| 单元1, 行2
+| 单元3, 行2
+|}
+</pre>
+:将生成：
+{| align=right border=1
+| 单元1, 行1
+|rowspan=2| 单元2, 行1 (和2)
+| 单元3, 行1
+|-
+| 单元1, 行2
+| 单元3, 行2
+|}
+
+*实例3
+:嵌套表格
+<pre>
+{| border=1
+| 你好
+|
+{| bgcolor=#ABCDEF border=2
+|中国
+|-
+|表格
+|}
+|原来表格
+|}
+</pre>
+:生成：
+{| border=1
+| 你好
+|
+{| bgcolor=#ABCDEF border=2
+|中国
+|-
+|表格
+|}
+|原来表格
+|}
+
+*实例4：
+
+:带标题的表格
+<pre>
+{| border=1 align=right
+|+ '''这是标题''' 请参看：
+|独立||1949年
+|-
+|国家||中华人民共和国
+|-
+|时区||UTC+8
+|-
+|国歌||义勇军进行曲
+|-
+|域名||.cn
+|}
+</pre>
+:将生成：
+{| border=1 align=right
+|+ '''这是标题''' 请参看：
+|独立||1949年
+|-
+|国家||中华人民共和国
+|-
+|时区||UTC+8
+|-
+|国歌||义勇军进行曲
+|-
+|域名||.cn
+|}
+
+== 高级特性 ==
+*名字空间：在mediawiki中，以英文开始的文章标题中首字母自动大写；标题中的空格会被自动使用下划线代替。
+
+
+下面表格的左边显示浏览效果。也就是说，要使文字实现像左边列一样的效果，输入右边列的文字就行了。
+
+您或许想在另一个窗口打开本页以做参考。如果您希望实验一下，您可以在沙盒中实验。
+
+=== 章节、段落，列表及线条 ===
+{| border="1" cellpadding="2" cellspacing="0"
+|-----
+! 您所看到的
+! 您所输入的
+|-----
+| 当您在对话页添加评语时，您应当签名。您可以输入三条～添加用户名：Klniu
+
+或四条～添加用户名及日期时间：
+Klniu 08:24 2004年7月31日 (UTC)
+
+当输入五条～时只显示时间：
+08:26 2004年10月25日 (UTC)
+
+| <pre><nowiki>当您在对话页添加评语时，您应当签名。
+您可以输入三条～添加用户名： 
+~~~
+
+或四条添加用户名及日期时间：
+~~~~
+
+当输入五条时只显示时间：
+~~~~~
+</nowiki></pre>
+|}
+
+=== 字符格式 ===
+
+{| border="1" cellpadding="2" cellspacing="0"
+|-----
+! 您所看到的
+! 您所输入的
+|----- valign="top"
+|
+'''变音及重音符号：'''<br>
+&Agrave; &Aacute; &Acirc; &Atilde; &Auml; &Aring; <br>
+&AElig; &Ccedil; &Egrave; &Eacute; &Ecirc; &Euml; <br>
+&Igrave; &Iacute;
+&Icirc; &Iuml; &Ntilde; &Ograve; <br>
+&Oacute; &Ocirc; &Otilde;
+&Ouml; &Oslash; &Ugrave; <br>
+&Uacute; &Ucirc; &Uuml; &szlig;
+&agrave; &aacute; <br>
+&acirc; &atilde; &auml; &aring; &aelig;
+
+&ccedil; <br>
+&egrave; &eacute; &ecirc; &euml; &igrave; &iacute;<br>
+&icirc; &iuml; &ntilde; &ograve; &oacute; &ocirc; <br>
+&otilde;
+&ouml; &oslash; &ugrave; &uacute; &ucirc; <br>
+&uuml; &yuml;
+| <pre><nowiki>
+
+
+&amp;Agrave; &amp;Aacute; &amp;Acirc; &amp;Atilde; &amp;Auml; &amp;Aring; 
+&amp;AElig; &amp;Ccedil; &amp;Egrave; &amp;Eacute; &amp;Ecirc; &amp;Euml; 
+&amp;Igrave; &amp;Iacute; &amp;Icirc; &amp;Iuml; &amp;Ntilde; &amp;Ograve; 
+&amp;Oacute; &amp;Ocirc; &amp;Otilde; &amp;Ouml; &amp;Oslash; &amp;Ugrave; 
+&amp;Uacute; &amp;Ucirc; &amp;Uuml; &amp;szlig; &amp;agrave; &amp;aacute; 
+&amp;acirc; &amp;atilde; &amp;auml; &amp;aring; &amp;aelig; &amp;ccedil; 
+&amp;egrave; &amp;eacute; &amp;ecirc; &amp;euml; &amp;igrave; &amp;iacute;
+&amp;icirc; &amp;iuml; &amp;ntilde; &amp;ograve; &amp;oacute; &amp;ocirc; 
+&amp;oelig; &amp;otilde; &amp;ouml; &amp;oslash; &amp;ugrave; &amp;uacute; 
+&amp;ucirc; &amp;uuml; &amp;yuml;</nowiki></pre>
+|----- valign="top"
+|
+'''标点符号：'''<br>
+&iquest; &iexcl; &laquo; &raquo; &sect; &para;<br>
+&dagger; &Dagger; &bull; &mdash;
+| <pre><nowiki>
+
+&amp;iquest; &amp;iexcl; &amp;laquo; &amp;raquo; &amp;sect; &amp;para;
+&amp;dagger; &amp;Dagger; &amp;bull; &amp;mdash;</nowiki></pre>
+|----- valign="top"
+|
+'''商业符号：'''<br>
+&trade; &copy; &reg; &cent; &euro; &yen; <br>
+&pound; &curren;
+| <pre><nowiki>
+
+&amp;trade; &amp;copy; &amp;reg; &amp;cent; &amp;euro; &amp;yen; 
+&amp;pound; &amp;curren;
+</nowiki></pre>
+|----- valign="top"
+| 下标：x<sub>2</sub><br>
+上标：x<sup>2</sup> 或者 x&sup2;
+*上標的后一种方法可能在多数情况下无法使用，但情況許可下請使用因为這使文章看起來較順眼。
+&epsilon;<sub>0</sub> =
+8.85 &times; 10<sup>&minus;12</sup>
+C&sup2; / J m.
+| <pre><nowiki>下标: x<sub>2</sub>
+上标: x<sup>2</sup> 或者 x&amp;sup2;
+
+&amp;epsilon;<sub>0</sub> =
+8.85 &times; 10<sup>&minus;12</sup>
+C&sup2; / J m.</nowiki></pre>
+|----- valign="top"
+| '''希腊字母：''' <br>
+&alpha; &beta; &gamma; &delta; &epsilon; &zeta; <br>
+&eta; &theta; &iota; &kappa; &lambda; &mu; &nu; <br>
+&xi; &omicron; &pi; &rho;  &sigma; &sigmaf; <br>
+&tau; &upsilon; &phi; &chi; &psi; &omega;<br>
+&Gamma; &Delta; &Theta; &Lambda; &Xi; &Pi; <br>
+&Sigma; &Phi; &Psi; &Omega;
+| <pre><nowiki>
+
+&amp;alpha; &amp;beta; &amp;gamma; &amp;delta; &amp;epsilon; &amp;zeta; 
+&amp;eta; &amp;theta; &amp;iota; &amp;kappa; &amp;lambda; &amp;mu; &amp;nu; 
+&amp;xi; &amp;omicron; &amp;pi; &amp;rho;  &amp;sigma; &amp;sigmaf;
+&amp;tau; &amp;upsilon; &amp;phi; &amp;chi; &amp;psi; &amp;omega;
+&amp;Gamma; &amp;Delta; &amp;Theta; &amp;Lambda; &amp;Xi; &amp;Pi; 
+&amp;Sigma; &amp;Phi; &amp;Psi; &amp;Omega;
+</nowiki></pre>
+|----- valign="top"
+|
+'''数学符号：''' <br>
+&int; &sum; &prod; &radic; &minus; &plusmn; &infin;<br>
+&asymp; &prop; &equiv; &ne; &le; &ge; &rarr;<br>
+&times; &middot; &divide; &part; &prime; &Prime;<br>
+&nabla; &permil; &deg; &there4; &alefsym; &oslash;<br>
+&isin; &notin; &cap; &cup; &sub; &sup; &sube; &supe;<br>
+&not; &and; &or; &exist; &forall; &rArr; &hArr;
+| valign="middle" | <pre><nowiki>
+
+&amp;int; &amp;sum; &amp;prod; &amp;radic; &amp;minus; &amp;plusmn; &amp;infin;
+&amp;asymp; &amp;prop; &amp;equiv; &amp;ne; &amp;le; &amp;ge; &amp;rarr;
+&amp;times; &amp;middot; &amp;divide; &amp;part; &amp;prime; &amp;Prime;
+&amp;nabla; &amp;permil; &amp;deg; &amp;there4; &amp;alefsym; &amp;oslash;
+&amp;isin; &amp;notin; &amp;cap; &amp;cup; &amp;sub; &amp;sup; &amp;sube; &amp;supe;
+&amp;not; &amp;and; &amp;or; &amp;exist; &amp;forall; &amp;rArr; &amp;hArr;
+&amp;rarr; &amp;harr;</nowiki></pre>
+|----- valign="top"
+| <i>x</i><sup>2</sup>&nbsp;&nbsp;&nbsp;&ge;&nbsp;&nbsp;&nbsp;0 true.
+*要分开文字，使用非分隔空格 - <tt>&amp;nbsp;</tt>.
+*<tt>&amp;nbsp;</tt>也防止在文字中间换行。这在方程式中十分有用。
+| <pre><nowiki>
+<i>x</i><sup>2</sup>&amp;nbsp;&amp;nbsp;&amp;ge;&amp;nbsp;&amp;nbsp;0 true.
+</nowiki></pre>
+|-----
+|
+'''Ascii文字艺术（每行开始处留空）：'''
+<pre>
+&infin; -x&sup2;
+&int; e   dx = &radic;&pi;
+-&infin; </pre>
+| <pre><nowiki> 
+&amp;infin; -x&amp;sup2;
+&amp;int; e   dx = &amp;radic;&amp;pi;
+-&amp;infin; </nowiki></pre>
+|}
+</div>
+== 使用参考文献 ==
+引用维基百科条目：
+<pre>[[wikipedia:语言代码:条目名称]]</pre>
+比如，中文维基百科条目：莲
+<pre>[[wikipedia:zh:莲]]</pre>
+显示为：[[wikipedia:zh:莲]]

@@ -1,0 +1,44 @@
+访问 http://192.168.0.34/mediawiki/MediaWiki:Common.css
+增加如下代码
+
+
+#toc{
+ display: block;
+ position: fixed;
+ top: 100px;
+ right: 0px;
+ min-width: 100px;
+ max-width: 350px;
+ max-height: 20px;
+ overflow-y: scroll;
+ border: 1px solid #aaa;
+ border-radius: 0 0 1px 1px;
+ -moz-border-radius: 0 0 1px 1px;
+ background: rgba(249,249,249,0.75);
+ padding: 12px;
+ box-shadow: 0 1px 8px #000;
+ -webkit-box-shadow: 0 1px 8px #000;
+ -moz-box-shadow: 0 1px 8px #000;
+}
+ 
+#toc:hover{
+ display: block;
+ position: fixed;
+ top: 100px;
+ right: 0px;
+ min-width: 100px;
+ max-width: 350px;
+ max-height: 500px;
+ overflow-y: scroll;
+ border: 1px solid #aaa;
+ border-radius: 0 0 1px 1px;
+ -moz-border-radius: 0 0 1px 1px;
+ background: rgba(249,249,249,0.75);
+ padding: 12px;
+ box-shadow: 0 1px 8px #000;
+ -webkit-box-shadow: 0 1px 8px #000;
+ -moz-box-shadow: 0 1px 8px #000;
+ 
+}
+ 
+body { overflow-x: hidden;}
