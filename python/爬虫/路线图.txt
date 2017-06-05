@@ -1,0 +1,12 @@
+1.用urllib、urllib2从网站爬下所有内容
+2.通过正则表达式找到感兴趣的内容
+
+
+3.爬虫框架介绍 pyspider
+如何安装pyspider
+安装phantomjs，再安装pyspider
+pyspider可以通过pip install pyspider
+
+
+其它：PhantomJS 
+Selenium + PhantomJS
