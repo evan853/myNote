@@ -1,0 +1,33 @@
+导出sql
+mysqldump.exe -ubitnami -hlocalhost -p bitnami_redmine>backup.sql
+mysqldump.exe -ubitnami -p bitnami_redmine>backup.sql
+
+导入sql
+mysql -ubitnami -p bitnami_redmine<backup.sql
+
+另外如下目录中是附件
+C:\Bitnami\redmine-3.3.1-0\apps\redmine\htdocs\files
+
+linux下操作redmine的命令
+       ./ctlscript.sh (start|stop|restart)
+       ./ctlscript.sh (start|stop|restart) mysql
+       ./ctlscript.sh (start|stop|restart) apache
+       ./ctlscript.sh (start|stop|restart) redmine
+       ./ctlscript.sh (start|stop|restart) subversion
+
+redmine的mysql账号密码保存在如下文件（账号是bitnami，数据库是bitnami_redmine，密码使用production下的那个）
+redmine-3.3.1-0/apps/redmine/htdocs/config/database.yml
+
+
+mysql 显示表的所有字段名命令：
+select COLUMN_NAME from information_schema.COLUMNS where table_name = 'issues';
+
+mysql 更新某条记录的某个值：
+update issues set status_id=9 where id='37';
+
+redmine主页链接的快捷配置方法：
+在配置里面加入如下语句： "bug跟踪流程图":http://192.168.0.210/redmine/projects/redmine_/wiki
+
+
+RAP下载地址
+https://github.com/thx/
