@@ -1,0 +1,8 @@
+1.在 Linux 下为了安全，默认是不允许 MySQL 服务器本机以外的机器访问 MySQL 数据库服务的，因此需要重新授权 root 账号。方便其他机器远程访问 MySQL 服务器，MySQL 命令如下：
+
+grant all privileges on *.* to root@'%' identified by '1234';
+flush privileges;
+
+
+
+http://www.cnblogs.com/hzhida/archive/2012/08/03/2621547.html

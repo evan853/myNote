@@ -1,0 +1,142 @@
+create table tbl_disaster_middle_flood_coordinate (
+lng DOUBLE(9,6),
+lat DOUBLE(9,6),
+info CHAR(255)，
+id INT NOT NULL
+);
+
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.713988,32.020159,"有内涝",1);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.742227,32.008805,"水位增加",2);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.78437,32.030492,"水位明显增加",3);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.744973,32.038568,"水位明显增加",3);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.788919,32.020377,"水位增加",2);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.768663,31.997596,"水位增加",2);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.744716,31.985585,"有内涝",1);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.741969,32.055737,"有内涝",1);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.717336,32.033693,"有内涝",1);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.796472,32.044098,"水位明显增加",3);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.801021,32.022997,"水位增加",2);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.788146,32.00109,"水位增加",2);
+
+
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.758644,31.990398,"有内涝",1);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.795701,31.994911,"水位增加",2);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.769266,31.997059,"水位明显增加",3);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.779222,31.987304,"水位明显增加",3);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.770982,31.983482,"水位增加",2);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.686181,31.980388,"水位增加",2);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.734933,32.004701,"有内涝",1);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.820764,31.974563,"有内涝",1);
+insert into tbl_disaster_middle_flood_coordinate (lng,lat,info,id) values (118.797933,31.995093,"有内涝",1);
+
+
+
+#############################################################
+create table tbl_disaster_middle_line_coordinate (
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+type CHAR(20),
+type_id INT,
+lng DOUBLE(9,6),
+lat DOUBLE(9,6)
+);
+
+#红色为1
+insert into tbl_disaster_middle_line_coordinate (type,type_id,lng,lat) values ("polyline",1,118.745561, 32.002735);
+insert into tbl_disaster_middle_line_coordinate (type,type_id,lng,lat) values ("polyline",1,118.744789, 32.001788);
+insert into tbl_disaster_middle_line_coordinate (type,type_id,lng,lat) values ("polyline",1,118.741892, 31.998131);
+insert into tbl_disaster_middle_line_coordinate (type,type_id,lng,lat) values ("polyline",1,118.739253, 31.994946);
+insert into tbl_disaster_middle_line_coordinate (type,type_id,lng,lat) values ("polyline",1,118.737204, 31.992553);
+insert into tbl_disaster_middle_line_coordinate (type,type_id,lng,lat) values ("polyline",1,118.735079, 31.9939);
+insert into tbl_disaster_middle_line_coordinate (type,type_id,lng,lat) values ("polyline",1,118.734178, 32.001788);
+
+##################################################################
+create table tbl_disaster_middle_line_coordinate_test (
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+type CHAR(20),
+type_id INT,
+latlngs LONGTEXT
+);
+
+insert into tbl_disaster_middle_line_coordinate_test (type,type_id,latlngs) values ("polyline",1,"[
+      {
+        &quot;lat&quot;: 32.002735,
+        &quot;lng&quot;: 118.745561
+      },
+      {
+        &quot;lat&quot;: 32.001788,
+        &quot;lng&quot;: 118.744789
+      },
+      {
+        &quot;lat&quot;: 31.998131,
+        &quot;lng&quot;: 118.741892
+      },
+      {
+        &quot;lat&quot;: 31.994946,
+        &quot;lng&quot;: 118.739253
+      },
+      {
+        &quot;lat&quot;: 31.992553,
+        &quot;lng&quot;: 118.737204
+      },
+      {
+        &quot;lat&quot;: 31.9939,
+        &quot;lng&quot;: 118.735079
+      },
+      {
+        &quot;lat&quot;: 31.992944,
+        &quot;lng&quot;: 118.734178
+      }
+    ]"
+
+);
+###################################################################
+select * from tbl_disaster_middle_flood_coordinate where id=1;
+select * from tbl_disaster_middle_line_coordinate;
+
+select type,type_id as id,latlngs from tbl_disaster_middle_line_coordinate_test;
+
+####################################################################
+TIPS:
+>alter table 表名称 change 字段名称 字段名称 字段类型 [是否允许非空];
+>alter table 表名称 modify 字段名称 字段类型 [是否允许非空];
+alter table table1 add transactor varchar(10) not Null;
+alter table tbl_disaster_middle_line_coordinate change id auto_id int;
+drop table 表名;
+ALTER TABLE mytable DROP 字段名;
+
+创建完表后再创建主键
+alter table t add primary key (id);
+
+修改某一列为自增：
+mysql> alter table test change id  id int AUTO_INCREMENT;
+
+mysql> create table t24(id int,namechar(10));
+mysql> alter table t24 add primarykey(id); //添加主键
+mysql> alter table t24 modify id intauto_increment;//加入自动增加
+ 
+/**删除主键唯一约束,还原到建表时的状态*/
+mysql> alter table t24 modify id int; //去掉auto_increment
+mysql> alter table t24 drop primary key;
+mysql> alter table t24 modify id int;//修改默认值为null
+
+删除表中所有数据
+truncate table tbl_disaster_middle_line_coordinate_test;
+delete from tbl_disaster_middle_line_coordinate_test;
+
+查询表创建时间
+select * from information_schema.tables where table_schema='test_iotsafetycenter' and table_name ='tbl_disaster_middle_line_coordinate';
+
+################查询语句#####################查询语句###################
+select type,type_id as id,concat(lng,",",lat) as latlngs from   tbl_disaster_middle_line_coordinate order by auto_id desc;
+
+select type,type_id as id,lng,lat from tbl_disaster_middle_line_coordinate order by auto_id desc;
+
+select type,type_id as id from tbl_disaster_middle_line_coordinate;
+select lng,lat from tbl_disaster_middle_line_coordinate;
+
+select distinct(type_id) as id,type from tbl_disaster_middle_line_coordinate;
+
+mysql -uroot -pIstuary88! test_iotsafetycenter<tbl_disaster_middle_flood_coordinate_2.sql
+
+
+
