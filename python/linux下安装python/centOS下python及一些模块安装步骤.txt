@@ -1,0 +1,14 @@
+1.下载安装包并解压
+2.执行./configure --prefix=/usr/local/python
+3,make
+4.make install
+
+5.下载并安装setuptools，安装命令python setup.py install
+6.下载并安装pip，安装命令python setup.py install
+
+7.下载https://pypi.python.org/pypi/MySQL-python/
+8.执行yum install python-devel
+9.执行yum install mysql-devel
+10.修改 MySQL-python-1.2.5 目录下的site.cfg文件，去掉mysql_config=XXX的注释，修改成mysql_config=/usr/bin/mysql_config。该文件路径以上一步生成的实际位置为准，可以使用find / -name mysql_config查找
+11.到 MySQL-python-1.2.5 目录下执行python setup.py build 和python setup.py install
+12.在python中执行import MySQLdb 没有报错则该模块安装成功
