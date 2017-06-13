@@ -4,6 +4,7 @@ import sys, os
 
 class validateFile:
     def __init__(self):
+        #定义支持的模式列表，最后一个值为计算所有支持模式的值
         self.modeList=["md5","sha1","sha224","sha256","sha384","sha512","all"]
 
     def main(self):
@@ -14,7 +15,7 @@ class validateFile:
                 print sh
         elif paraList[0]==2:
             if self.validParaIsAFile(paraList[1][0]) and self.validVerificationMode(paraList[1][1]):
-                if paraList[1][1]=="all":
+                if paraList[1][1]==self.modeList[-1]:
                     self.computeAllSha(paraList[1][0])
                 else:
                     sh = self.computeSha(paraList[1][0], paraList[1][1])
@@ -33,11 +34,21 @@ class validateFile:
             arguments=[1,[sys.argv[1]]]
         elif len(sys.argv)==1:
             print "You should input one option at least! "
+            self.help()
             arguments=[0,[]]
         else:
             print "You have entered too many parameters!"
             arguments=[-1,[]]
         return arguments
+
+    def help(self):
+        print ''
+        print u"用法："
+        print u"python hash_main.py 文件名 [校验模式]"
+        print ""
+        print u'"文件名"为文件的完整路径，路径中含有空格时请用引号括起'
+        print u'"校验模式"为可选参数，支持这些模式'+",".join(['"'+i+'"' for i in self.modeList])
+        print u"校验模式参数未给定时，默认只计算 sha256 值，模式为"+self.modeList[-1]+u"时，会计算所有支持的模式值"
 
     def validVerificationMode(self,mode):
         if mode in self.modeList:
