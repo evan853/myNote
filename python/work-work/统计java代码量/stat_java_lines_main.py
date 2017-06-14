@@ -11,6 +11,8 @@ class statJavaLines:
         self.allLines=0
         self.allBlankLines=0
         self.allAnnotationLines=0
+        self.allValidLines=0
+        self.outputFileFlag=0
 
     def validPathOrFile(self):
         if os.path.isdir(self.statPath):
@@ -19,6 +21,13 @@ class statJavaLines:
             return (True,"FILE")
         else:
             return (False,"INVALID")
+
+    def validIsAJavaFile(self):
+        pattern=re.compile("\.java$",re.I)
+        if re.findall(pattern,self.statPath):
+            return True
+        else:
+            return False
 
     def findDotJavaFiles(self):
         self.findAllFilesInAPath()
@@ -63,7 +72,7 @@ class statJavaLines:
             self.allBlankLines += self.statBlankLinesInAFile(filePath)
 
     def statAnnotationLinesInAFile(self,fileName):
-        patternStart=re.compile("/\*.*")
+        patternStart=re.compile("/\*")
         patternEnd=re.compile("\*/")
         patternOther=re.compile("^\s*//.*")
         flag=0
@@ -73,10 +82,12 @@ class statJavaLines:
             for n in range(len(tmpFile)):
                 if re.findall(patternStart,tmpFile[n]) and flag==0:
                     flag=1
-                    lines+=1
+                    if re.findall("^\s*/\*",tmpFile[n]):
+                        lines+=1
                 elif re.findall(patternEnd,tmpFile[n]) and flag==1:
                     flag=0
-                    lines+=1
+                    if re.findall("\*/\s*$",tmpFile[n]):
+                        lines+=1
                 elif flag==1:
                     lines+=1
                 elif flag==0 and re.findall(patternOther,tmpFile[n]):
@@ -88,29 +99,72 @@ class statJavaLines:
         for filePath in self.allFilesInAPath:
             self.allAnnotationLines += self.statAnnotationLinesInAFile(filePath)
 
-    def statValidLinesInAFile(self):
-        pass
+    def statValidLinesInAFile(self,fileName):
+        return self.statAllLinesInAFile(fileName)-self.statBlankLinesInAFile(fileName)-self.statAnnotationLinesInAFile(fileName)
 
     def statValidLinesInAPath(self):
-        pass
+        self.findDotJavaFiles()
+        for filePath in self.allFilesInAPath:
+            self.allValidLines+=self.statValidLinesInAFile(filePath)
+
+    def printDetailedInAPath(self):
+        self.findDotJavaFiles()
+        for fileName in self.allFilesInAPath:
+            self.printAllInAFile(fileName)
+
+    def outputFile(self,outputStr,fileName="result.txt"):
+        if self.outputFileFlag==0:
+            os.remove(fileName)
+            self.outputFileFlag=1
+        with open(fileName,"a") as i:
+            i.write(outputStr.encode('gbk'))
+
+    def printAllInAPath(self):
+        self.statAllLinesInAPath()
+        self.statBlankLinesInAPath()
+        self.statAnnotationLinesInAPath()
+        self.statValidLinesInAPath()
+        outputStr=self.printInformation(self.allLines,self.allBlankLines,self.allAnnotationLines,self.allValidLines,"TOTAL")
+        print outputStr
+        self.outputFile(outputStr)
+
+    def printInformation(self,allLines,allBlankLines,allAnnotationLines,allValidLines,outputType,name="Statistic information"):
+        rtstr="--------------------------------------------------------------------------------\n\n"
+        if outputType=="FILE":
+            rtstr+="FILE:\t"+name+"\n"
+        elif outputType=="TOTAL":
+            rtstr+="TOTAL:\t"+name+"\n"
+        rtstr +="Total lines:\t" + str(allLines)+"\n"
+        rtstr +="Blank lines:\t" + str(allBlankLines)+"\n"
+        rtstr +="Annot lines:\t" + str(allAnnotationLines)+"\n"
+        rtstr +="Valid lines:\t" + str(allValidLines)+"\n\n"
+        return rtstr
+
+
+    def printAllInAFile(self, fileName):
+        outputStr=self.printInformation(self.statAllLinesInAFile(fileName), self.statBlankLinesInAFile(fileName), self.statAnnotationLinesInAFile(fileName), self.statValidLinesInAFile(fileName), "FILE",fileName)
+        print outputStr
+        self.outputFile(outputStr)
 
     def main(self):
         vP=self.validPathOrFile()
         if vP[0]:
             if vP[1]=="DIR":
-                self.statAllLinesInAPath()
-                self.statBlankLinesInAPath()
-                self.statAnnotationLinesInAPath()
-                print self.allLines,"\t",self.allBlankLines,"\t",self.allAnnotationLines
-                validLines=self.allLines-self.allBlankLines-self.allAnnotationLines
-                print "Valid lines: "+str(validLines)
+                #先打印详单，再打印总计
+                self.printDetailedInAPath()
+                self.printAllInAPath()
             elif vP[1]=="FILE":
-                pass
+                #入参只是文件的话，校验是否为java文件，如是java文件，则打印总计
+                if self.validIsAJavaFile():
+                    self.printAllInAFile(self.statPath)
+                else:
+                    print u"The parameter is not a java file!"
         else:
             print u"The parameter is neither a valid path, nor a valid file name!"
 
 if __name__ =="__main__":
-    #statPath=u"F:\code\SmartParking"
-    statPath=u"F:\code\SmartParking\DynamicBox\src\main\java\mehdi\sakout\dynamicbox\dfa"
+    #statPath=ur"F:\code\SmartParking"
+    #statPath=ur"F:\code\SmartParking\DynamicBox\src\main\java\mehdi\sakout\dynamicbox\测试\1.java"
+    statPath=ur"F:\code\SmartParking\DynamicBox\src\main\java\mehdi\sakout\dynamicbox\DynamicBox.java"
     s=statJavaLines(statPath)
     s.main()

@@ -1,0 +1,9 @@
+用途：
+1.递归统计指定目录下所有java文件的总代码行数，空白行数，注释行数，有效行数
+2.统计单个java文件的总代码行数，空白行数，注释行数，有效行数
+
+注意事项：
+1.调用时需要自己调用 validPathOrFile 来验证给定路径是否有效，是有效文件还是有效目录；对于有效文件需要自己调用 validIsAJavaFile 来验证是否为java文件
+2.调用 printDetailedInAPath 来打印给定目录下所有文件统计的详单，详单同时会被打印到脚本所在目录下的 result.txt文件中
+3.调用 printAllInAPath 来打印给定目录下所有文件总的统计信息，统计信息同时会被打印到脚本所在目录下的 result.txt文件中
+4.调用 printAllInAFile 来打印给定文件的统计信息，统计信息同时会被打印到脚本所在目录下的 result.txt文件中
