@@ -3,6 +3,9 @@
 import getopt
 import os
 import re
+import sys
+reload(sys)
+sys.setdefaultencoding('gbk')
 
 class statJavaLines:
     def __init__(self,statPath):
@@ -114,7 +117,10 @@ class statJavaLines:
 
     def outputFile(self,outputStr,fileName="result.txt"):
         if self.outputFileFlag==0:
-            os.remove(fileName)
+            try:
+                os.remove(fileName)
+            except:
+                pass
             self.outputFileFlag=1
         with open(fileName,"a") as i:
             i.write(outputStr.encode('gbk'))
@@ -163,8 +169,14 @@ class statJavaLines:
             print u"The parameter is neither a valid path, nor a valid file name!"
 
 if __name__ =="__main__":
+    if len(sys.argv)==2:
+        s = statJavaLines(sys.argv[1])
+        s.main()
+    else:
+        print "You have to enter only one parameter! "
+
     #statPath=ur"F:\code\SmartParking"
     #statPath=ur"F:\code\SmartParking\DynamicBox\src\main\java\mehdi\sakout\dynamicbox\测试\1.java"
-    statPath=ur"F:\code\SmartParking\DynamicBox\src\main\java\mehdi\sakout\dynamicbox\DynamicBox.java"
-    s=statJavaLines(statPath)
-    s.main()
+    #statPath=ur"F:\code\SmartParking\DynamicBox\src\main\java\mehdi\sakout\dynamicbox\DynamicBox.java"
+    #s=statJavaLines(statPath)
+    #s.main()
