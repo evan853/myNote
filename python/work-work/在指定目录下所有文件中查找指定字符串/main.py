@@ -2,8 +2,8 @@
 import os, sys
 
 def main():
-    FilterList = ["php","js","css","html","txt","ini"]
-    TargetStr = "NewsLinej\"
+    FilterList = ["php","js","css","html","txt","ini",'java','xml']
+    TargetStr = "import"
     TargetFileList = []
 
     if getParasFromTerminal() <> []:
