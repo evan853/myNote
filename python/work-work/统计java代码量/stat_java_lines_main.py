@@ -3,6 +3,7 @@
 import getopt
 import os
 import re
+from lxml import etree
 import sys
 reload(sys)
 sys.setdefaultencoding('gbk')
@@ -15,7 +16,11 @@ class statJavaLines:
         self.allBlankLines=0
         self.allAnnotationLines=0
         self.allValidLines=0
-        self.outputFileFlag=0
+        self.outputTextFileFlag=0
+        self.outputXMLFileFlag=0
+        self.xmlRoot=etree.Element("codelines")
+        self.xmlRoot.append(etree.Element("detailed"))
+        self.xmlRoot.append(etree.Element("totallines"))
 
     def validPathOrFile(self):
         if os.path.isdir(self.statPath):
@@ -116,14 +121,44 @@ class statJavaLines:
             self.printAllInAFile(fileName)
 
     def outputFile(self,outputStr,fileName="result.txt"):
-        if self.outputFileFlag==0:
+        if self.outputTextFileFlag==0:
             try:
                 os.remove(fileName)
             except:
                 pass
-            self.outputFileFlag=1
+            self.outputTextFileFlag=1
         with open(fileName,"a") as i:
             i.write(outputStr.encode('gbk'))
+
+    def generateXMLNode(self,allLines,allBlankLines,allAnnotationLines,allValidLines,fileName="-",nodeType="FILE"):
+        if nodeType=="FILE":
+            item=etree.Element("item",path=fileName.decode('gbk'))
+            item.append(etree.Element("totallines"))
+            item.append(etree.Element("blanklines"))
+            item.append(etree.Element("commentlines"))
+            item.append(etree.Element("validlines"))
+            item[0].text = str(allLines)
+            item[1].text = str(allBlankLines)
+            item[2].text = str(allAnnotationLines)
+            item[3].text = str(allValidLines)
+            self.xmlRoot[0].append(item)
+        elif nodeType=="TOTAL":
+            self.xmlRoot[1].append(etree.Element("totallines"))
+            self.xmlRoot[1].append(etree.Element("blanklines"))
+            self.xmlRoot[1].append(etree.Element("commentlines"))
+            self.xmlRoot[1].append(etree.Element("validlines"))
+            self.xmlRoot[1][0].text=str(allLines)
+            self.xmlRoot[1][1].text = str(allBlankLines)
+            self.xmlRoot[1][2].text=str(allAnnotationLines)
+            self.xmlRoot[1][3].text = str(allValidLines)
+
+    def outputXMLFile(self,fileName="result.xml"):
+        if self.outputXMLFileFlag==0:
+            try:
+                os.remove(fileName)
+            except:
+                pass
+        self.outputFile(etree.tostring(self.xmlRoot,pretty_print=True,encoding='utf-8'),fileName)
 
     def printAllInAPath(self):
         self.statAllLinesInAPath()
@@ -133,6 +168,7 @@ class statJavaLines:
         outputStr=self.printInformation(self.allLines,self.allBlankLines,self.allAnnotationLines,self.allValidLines,"TOTAL")
         print outputStr
         self.outputFile(outputStr)
+        self.generateXMLNode(self.allLines,self.allBlankLines,self.allAnnotationLines,self.allValidLines,nodeType="TOTAL")
 
     def printInformation(self,allLines,allBlankLines,allAnnotationLines,allValidLines,outputType,name="Statistic information"):
         rtstr="--------------------------------------------------------------------------------\n\n"
@@ -146,11 +182,11 @@ class statJavaLines:
         rtstr +="Valid lines:\t" + str(allValidLines)+"\n\n"
         return rtstr
 
-
     def printAllInAFile(self, fileName):
         outputStr=self.printInformation(self.statAllLinesInAFile(fileName), self.statBlankLinesInAFile(fileName), self.statAnnotationLinesInAFile(fileName), self.statValidLinesInAFile(fileName), "FILE",fileName)
         print outputStr
         self.outputFile(outputStr)
+        self.generateXMLNode(self.statAllLinesInAFile(fileName), self.statBlankLinesInAFile(fileName), self.statAnnotationLinesInAFile(fileName), self.statValidLinesInAFile(fileName), fileName)
 
     def main(self):
         vP=self.validPathOrFile()
@@ -159,10 +195,12 @@ class statJavaLines:
                 #先打印详单，再打印总计
                 self.printDetailedInAPath()
                 self.printAllInAPath()
+                self.outputXMLFile()
             elif vP[1]=="FILE":
                 #入参只是文件的话，校验是否为java文件，如是java文件，则打印总计
                 if self.validIsAJavaFile():
                     self.printAllInAFile(self.statPath)
+                    self.outputXMLFile()
                 else:
                     print u"The parameter is not a java file!"
         else:

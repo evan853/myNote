@@ -1,6 +1,7 @@
 用途：
 1.递归统计指定目录下所有java文件的总代码行数，空白行数，注释行数，有效行数
 2.统计单个java文件的总代码行数，空白行数，注释行数，有效行数
+3.统计结果会同时打印到终端，result.txt和result.xml
 
 使用方法：
 python stat_java_lines_main.py <有效路径>
