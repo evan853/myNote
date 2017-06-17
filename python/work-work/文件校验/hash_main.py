@@ -75,7 +75,7 @@ class validateFile:
             rt=shaC+u"\t值\t"+t.hexdigest()
             return rt
 
-
 if __name__ == "__main__":
     s=validateFile()
     s.main()
+

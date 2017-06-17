@@ -90,5 +90,37 @@ class JPM:
 #        for i in self.title_and_content:
 #            print "%s\t:%s " % (i[0], i[1])
 
-jpm = JPM()
-jpm.start()
+class processFile:
+    def __init__(self,fileName):
+        self.fileName=fileName
+
+    def processFile(self,destFileName):
+        with open(self.fileName,"rb") as r:
+            flag=0
+            flagpoem=0
+            poemPattern=re.compile("^\xa1{8}")
+            lines=r.readlines()
+            #print lines[:20]
+            #for i in lines[:20]:
+                #print i
+            pattern=re.compile("^\s+$")
+            for n in range(len(lines)-2,-1,-1):
+                if re.findall(pattern,lines[n]):
+                    flag=1
+                else:
+                    if flag==1:
+                        flag=0
+                    elif flag==0 and not re.findall(poemPattern,lines[n]):
+                        lines[n]=re.sub(re.compile("\s+$"),"",lines[n])
+                        #lines[n+1]=re.sub(re.compile("^\xa1*"),"",lines[n+1])
+                    else:
+                        pass
+
+            with open(destFileName,"wb") as w:
+                for i in lines:
+                    w.write(i)
+
+#jpm = JPM()
+#jpm.start()
+p=processFile("JPM.txt")
+p.processFile("JPM2.txt")
