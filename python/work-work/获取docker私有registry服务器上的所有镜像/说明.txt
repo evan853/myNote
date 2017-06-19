@@ -1,0 +1,2 @@
+如在linux环境下执行python脚本，则在脚本开始位置声明编码类型后加上如下内容
+#!/usr/bin/env python
