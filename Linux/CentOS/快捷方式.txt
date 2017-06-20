@@ -1,0 +1,12 @@
+1.	安装前要选择已哪种方式安装
+2.	打开rpm -qa | grep ssh
+netstat -antp | grep ssh
+vi /etc/ssh/sshd_config, 允许root连接
+设置开机启动ssh, chkconfig sshd on
+service sshd restart
+3.  在防火墙中打开相应的服务或端口
+4.  修改ip，文件为 /etc/sysconfig/network-scripts/ifcfg-eth0，文件名字可能有差mc
+
+5. 关闭防火墙
+systemctl stop firewalld.service
+systemctl disable firewalld.service

@@ -1,0 +1,13 @@
+1.centos定时任务不执行的原因
+	查看crond的日志 tail /var/log/cron  发现了下面语句 (root) BAD FILE MODE (/etc/crontab)
+	原来是/etc/crontab 的权限不对，修改其权限为 644 即可，crontab即可执行
+
+2.centos开机自启动任务的设置，在/etc/rc.d/rc.local最后添加可执行文件的路径
+	注意修改/etc/rc.d/rc.local文件的权限为可执行
+
+3.centos mount windows共享目录时报错如下
+	mount: block device //192.168.1.103/share/yasi is write-protected, mounting 	read-only  
+	mount: cannot mount block device //192.168.1.103/share/yasi read-only 
+	
+	需要安装
+	yum install cifs-utils.x86_64 
