@@ -7,7 +7,7 @@ import requests
 import json
 import traceback
 
-repo_ip = '192.168.2.33'
+repo_ip = '192.168.0.34'
 repo_port = 5000
 
 
