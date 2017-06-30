@@ -1,0 +1,9 @@
+#安装了expect,jdk,gradle,android-sdk,svn,python的基础镜像
+FROM ey853/centos7.0.4:zh_CN
+
+#增加编译脚本
+ADD compile.sh /compileScript/compile.sh
+ADD verifyAuth.sh /compileScript/verifyAuth.sh
+
+#入口执行的函数
+ENTRYPOINT /bin/bash

@@ -1,0 +1,23 @@
+#安装了expect,jdk,gradle,android-sdk,svn,python的基础镜像
+FROM ey853/centos7.0.4:expect
+
+#下面是解决中文字符集问题加的，不过没解决了
+#RUN yum install kde-l10n-Chinese -y
+#RUN yum install glibc-common -y
+#RUN echo "export LANG=zh_CN.UTF-8">>/root/.bashrc
+#RUN export LANG=zh_CN.UTF-8
+#RUN export LC_ALL=zh_CN.UTF-8
+
+#中文字符集处理
+ADD locale-archive /usr/lib/locale-archive
+RUN cp /usr/lib/locale-archive /usr/lib/locale/locale-archive -f
+RUN rm -rf /usr/lib/locale-archive
+ENV LANG zh_CN.UTF-8
+
+#增加编译脚本
+ADD compile.sh /compileScript/compile.sh
+ADD verifyAuth.sh /compileScript/verifyAuth.sh
+
+#入口执行的函数
+ENTRYPOINT ["/compileScript/compile.sh"]
+

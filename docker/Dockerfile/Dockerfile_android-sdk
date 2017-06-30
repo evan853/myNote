@@ -1,0 +1,12 @@
+#安装了expect,jdk,gradle,android-sdk,svn,python的基础镜像
+FROM ey853/centos7.0.4:gradle2.10
+
+#
+RUN echo y | /usr/android-sdk/tools/android update sdk --no-ui --all --filter platform-tools
+RUN echo y | /usr/android-sdk/tools/android update sdk --no-ui --all --filter android-23
+RUN echo y | /usr/android-sdk/tools/android update sdk --no-ui --all --filter build-tools-23.0.3
+RUN echo y | /usr/android-sdk/tools/android update sdk --no-ui --all --filter extra-android-m2repository
+RUN echo y | yum install glibc.i686
+RUN echo y | yum install zlib.i686
+RUN echo y | yum install libstdc++.i686
+RUn echo y | yum install ncurses-libs.i686

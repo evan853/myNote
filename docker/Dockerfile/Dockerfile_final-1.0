@@ -1,0 +1,13 @@
+#安装了expect,jdk,gradle,android-sdk,svn,python的基础镜像
+FROM 192.168.0.34:5000/temp/centos7.0.5:android-sdk-append
+
+#中文字符集处理
+ADD locale-archive /usr/lib/locale-archive
+RUN cp /usr/lib/locale-archive /usr/lib/locale/locale-archive -f
+RUN rm -rf /usr/lib/locale-archive
+ENV LANG zh_CN.UTF-8
+
+####
+ENV JAVA_HOME /usr/java/jdk1.8.0_121
+ENV CLASSPATH .:$JAVA_HOME/lib/tools.jar
+ENV PATH /usr/gradle-2.10/bin:/usr/gradle/gradle-3.4/bin:$JAVA_HOME/bin:$PATH
