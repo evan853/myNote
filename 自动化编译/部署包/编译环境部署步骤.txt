@@ -1,0 +1,13 @@
+1.编译机安装docker客户端
+
+2.编译机安装python
+
+3.在编译机创建如下目录
+/compileDir	编译文件存放的路径
+/logDir		日志存放的路径
+/outputDir	最终生成物拷贝到的路径
+在这几个目录下根据项目创建对应更深的路径，这些路径在jenkins任务中创建docker容器的时候使用
+
+4.将getContainerName.py和processLogFile.py拷贝到编译机的/compileDir目录下
+getContainerName.py为获取当前可用容器名字的脚本
+processLogFile.py用来处理maven日志文件中下载包时的进程数据和有颜色的输出部分
