@@ -3,11 +3,17 @@
 2.编译机安装python
 
 3.在编译机创建如下目录
-/compileDir	编译文件存放的路径
-/logDir		日志存放的路径
-/outputDir	最终生成物拷贝到的路径
-在这几个目录下根据项目创建对应更深的路径，这些路径在jenkins任务中创建docker容器的时候使用
+/compileDir/PRODUCT/PROJECT/MODULE/code		编译文件存放的路径
+/compileDir/PRODUCT/PROJECT/MODULE/log		日志存放的路径
+/compileDir/PRODUCT/PROJECT/MODULE/archives	最终生成物拷贝到的路径
+这些路径在jenkins任务中创建docker容器的时候使用
 
-4.将getContainerName.py和processLogFile.py拷贝到编译机的/compileDir目录下
+4.将getContainerName.py，processLogFile.py，determineIfCompileSuccess.py和statTime.py拷贝到编译机的/compileDir目录下
 getContainerName.py为获取当前可用容器名字的脚本
 processLogFile.py用来处理maven日志文件中下载包时的进程数据和有颜色的输出部分
+determineIfCompileSuccess.py用来检查编译是否成功
+statTime.py用来估算时间
+
+
+备注：
+1.远程触发jenkins构建脚本中的脚本可以放在linux服务器中，修改其中的变量，把脚本写到linux定时任务中/etc/crontab，触发时机为“* * * * *”，并在jenkins任务中允许远程触发构建，这样就可以实现当svn中代码有更新时即触发jenkins任务构建
