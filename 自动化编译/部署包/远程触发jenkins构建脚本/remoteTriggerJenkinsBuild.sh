@@ -14,7 +14,7 @@ scriptHome="/home/test"
 function main()
 {
 newestRev=`svn info $svnPath --username=$svnUserName --password=$svnUserPasswd | grep "Last Changed Rev" | awk -F ": " '{print $2}'`
-if [ -f ./rev ]
+if [ -f $scriptHome/rev ]
 then
 	rev=`cat $scriptHome/rev`	
 	if [ $rev != $newestRev ]

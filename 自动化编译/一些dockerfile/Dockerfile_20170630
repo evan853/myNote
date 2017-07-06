@@ -1,0 +1,47 @@
+#安装了expect,jdk,svn,python的基础镜像
+FROM ey853/centos7.0.1:svn_unzip_jdk_gradle
+
+#中文字符集
+ADD locale-archive /usr/lib/locale-archive
+RUN cp /usr/lib/locale-archive /usr/lib/locale/locale-archive -f
+RUN rm -rf /usr/lib/locale-archive
+ENV LANG zh_CN.UTF-8
+
+#安装expect
+RUN echo y | yum install expect
+
+#增加编译脚本
+ADD compile.sh /compileScript/compile.sh
+ADD verifyAuth.sh /compileScript/verifyAuth.sh
+
+#安装maven环境
+ADD apache-maven-3.5.0-bin.tar.gz /opt/apache-maven-3.5.0-bin.tar.gz
+WORKDIR /opt
+#RUN tar -xzvf apache-maven-3.5.0-bin.tar.gz 
+
+#变量
+ENV JAVA_HOME /usr/java/jdk1.8.0_121
+ENV CLASSPATH .:$JAVA_HOME/lib/tools.jar
+ENV PATH /opt/apache-maven-3.5.0-bin.tar.gz/apache-maven-3.5.0/bin:$JAVA_HOME/bin:$PATH
+
+#增加编译库文件
+ADD alipay-1.0.jar /jar_home/alipay-1.0.jar
+ADD base-dao-1.0.jar /jar_home/base-dao-1.0.jar
+ADD dahantc-http-json-api-1.0.jar /jar_home/dahantc-http-json-api-1.0.jar
+ADD DMP-BASE.jar /jar_home/DMP-BASE.jar
+ADD wechatpay-0.0.7.jar /jar_home/wechatpay-0.0.7.jar
+
+WORKDIR /jar_home
+RUN /opt/apache-maven-3.5.0-bin.tar.gz/apache-maven-3.5.0/bin/mvn install:install-file -Dfile=dahantc-http-json-api-1.0.jar -DgroupId=com.dahantc -DartifactId=dahantc-http-json-api -Dversion=1.0 -Dpackaging=jar
+RUN /opt/apache-maven-3.5.0-bin.tar.gz/apache-maven-3.5.0/bin/mvn install:install-file -Dfile=base-dao-1.0.jar -DgroupId=com.istuary -DartifactId=base-dao -Dversion=1.0 -Dpackaging=jar
+RUN /opt/apache-maven-3.5.0-bin.tar.gz/apache-maven-3.5.0/bin/mvn install:install-file -Dfile=wechatpay-0.0.7.jar -DgroupId=com.lijing -DartifactId=wechatpay -Dversion=0.0.7 -Dpackaging=jar
+RUN /opt/apache-maven-3.5.0-bin.tar.gz/apache-maven-3.5.0/bin/mvn install:install-file -Dfile=alipay-1.0.jar -DgroupId=com.alipay -DartifactId=alipay -Dversion=1.0 -Dpackaging=jar
+RUN /opt/apache-maven-3.5.0-bin.tar.gz/apache-maven-3.5.0/bin/mvn install:install-file -Dfile=dahantc-http-json-api-1.0.jar -DgroupId=com.dahantc -DartifactId=dahantc-http-json-api -Dversion=1.0 -Dpackaging=jar
+
+WORKDIR /compileScript
+
+#增加svn认证文件
+ADD servers /root/.subversion/servers
+
+#增加入口脚本
+ENTRYPOINT /bin/bash
