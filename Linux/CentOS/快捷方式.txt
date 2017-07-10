@@ -10,3 +10,8 @@ service sshd restart
 5. 关闭防火墙
 systemctl stop firewalld.service
 systemctl disable firewalld.service
+
+6.设置共享时需要修改selinux状态
+永久修改的话要改/etc/selinux/config中的 SELINUX=disabled ，改为disabled，然后必须重启服务器才能生效
+临时修改的话执行命令 setenforce 0
+查看selinux状态的话执行命令 sestatus -v 或者 getenforce
