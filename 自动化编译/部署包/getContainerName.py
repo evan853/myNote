@@ -7,7 +7,7 @@ import os
 def getAllContainerName():
 	shellStr = """docker ps -a | awk -F '[ ]{2,}|"' '{if(NR>1) print $8}'"""
 	pattern = re.compile("a[1-9]{1}[0-9]{0,}")
-	#shellStr = """docker inpect """
+	#shellStr = """docker inspect -f {{.Name}} $(docker ps -aq)"""
 	(stat, output) = commands.getstatusoutput(shellStr)
 	if output=="":
 		return "a1"
@@ -21,14 +21,14 @@ def getAllContainerName():
 		codeN.sort()
 	else:
 		return "a1"
-	for i in range(1, codeN[-1] + 2):
+	for i in range(1, codeN[-1] + 1000):
 		if i not in codeN:
 			sid=i
 			break
 	return "a"+str(sid)
 
 if __name__ == "__main__":
-	interval=float(str(random.random())[:5])
-	os.system("sleep "+str(interval))
+	#interval=float(str(random.random())[:5])
+	#os.system("sleep "+str(interval))
 	print getAllContainerName()
 		
