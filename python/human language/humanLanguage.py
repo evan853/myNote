@@ -11,14 +11,14 @@ class HumanLanguage():
             self.fileContentList=f.readlines()
 
     def extractEnContent(self):
-        regx=re.compile("^\s*\w+\s+\w+")
+        regx=re.compile("(^\s*\w+\s+\w+)|(^\s*$)")
         enContentList = []
 
         for content in self.fileContentList:
             if re.findall(regx,content):
                 enContentList.append(content)
         for i in range(len(enContentList)):
-            enContentList[i]=re.sub(u'[\u4e00-\u9fa5].*', '', enContentList[i].decode('gb2312')).encode('gb2312')
+            enContentList[i]=re.sub(u'[\u4e00-\u9fa5].*', '', enContentList[i].decode('gbk')).encode('gbk')
 
         return enContentList
 
@@ -31,11 +31,29 @@ class HumanLanguage():
                 w.write("\n")
 
     def extractCnContent(self):
-        pass
+        regx = re.compile(u'(\.*[\u4e00-\u9fa5].*)|(^\s*$)')
+        cnContentList = []
+
+        for content in self.fileContentList:
+            if re.findall(regx, content.decode('gbk')): #可以指定为ignore/replace/xmlcharrefreplace,默认是strict
+                cnContentList.append(content)
+        for i in range(len(cnContentList)):
+            cnContentList[i]=re.sub(u'[\u4e00-\u9fa5]', '', cnContentList[i].decode('gbk')).encode('gbk')
+
+        return cnContentList
+
+    def outputCnContent2File(self,fileName):
+        cnContentList=self.extractCnContent()
+        with open(fileName,'wb') as w:
+            for i in cnContentList:
+                w.write(i.strip())
+                w.write("\n")
 
 if __name__=="__main__":
     filePath=u"F:\\github\\new\myNote\\python\\human language\\The Old Man and The Sea.txt"
-    outputFile=u'F:\\github\\new\\myNote\\python\\human language\\eng.txt'
+    enOutputFile=u'F:\\github\\new\\myNote\\python\\human language\\en.txt'
+    cnOutputFile = u'F:\\github\\new\\myNote\\python\\human language\\cn.txt'
     hLan=HumanLanguage(filePath)
-    hLan.outputEnContent2File(outputFile)
+    hLan.outputEnContent2File(enOutputFile)
+    hLan.outputCnContent2File(cnOutputFile)
 
